@@ -33,6 +33,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -216,7 +221,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return true;
     }
 
     /**
@@ -315,6 +320,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
+        String myresponse;
         private final String mEmail;
         private final String mPassword;
 
@@ -327,24 +333,60 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            try {
+
                 // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
+                //Thread.sleep(2000);
+                HttpURLConnection urlConnection = null;
+                BufferedReader reader = null;
+                String build = "http://localhost/1.php";
+                Log.e("the url ", build);
+                try {
+                    URL url = new URL(build);
+                    urlConnection = (HttpURLConnection) url.openConnection();
+                    urlConnection.setRequestMethod("GET");
+                    urlConnection.connect();
+                    InputStream inputStream = urlConnection.getInputStream();
+                    StringBuffer buffer = new StringBuffer();
+                    if (inputStream == null) {
+                        // Nothing to do.
+                        myresponse = null;
+                    }
+                    Log.e("here","reached");
+                    reader = new BufferedReader(new InputStreamReader(inputStream));
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
+                        // But it does make debugging a *lot* easier if you print out the completed
+                        // buffer for debugging.
+                        buffer.append(line + "\n");
+                    }
+
+                    if (buffer.length() == 0) {
+                        // Stream was empty.  No point in parsing.
+                        myresponse = null;
+                    }
+                    myresponse = buffer.toString();
+                    Log.e("the fin",myresponse);
+
+
+                }catch (Exception e) {
+                    Log.e("error",e.getMessage());
+                    return false;
                 }
+
+                for (String credential : DUMMY_CREDENTIALS) {
+                    String[] pieces = credential.split(":");
+                    if (pieces[0].equals(mEmail)) {
+                        // Account exists, return true if the password matches.
+                        return pieces[1].equals(mPassword);
+                    }
+                }
+
+                // TODO: register the new account here.
+                return true;
             }
 
-            // TODO: register the new account here.
-            return true;
-        }
 
         @Override
         protected void onPostExecute(final Boolean success) {

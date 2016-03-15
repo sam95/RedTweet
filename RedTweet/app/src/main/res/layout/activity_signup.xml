@@ -49,6 +49,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:id="@+id/Spinner01"
+
         android:entries="@array/spinnerItems"
         android:layout_below="@id/input_phone"
         android:layout_width="match_parent"
