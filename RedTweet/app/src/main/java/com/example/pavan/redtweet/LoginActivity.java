@@ -338,14 +338,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 //Thread.sleep(2000);
                 HttpURLConnection urlConnection = null;
                 BufferedReader reader = null;
-                String build = "http://localhost/1.php";
+                String build = "http://10.0.2.2/1.php";
                 Log.e("the url ", build);
                 try {
                     URL url = new URL(build);
                     urlConnection = (HttpURLConnection) url.openConnection();
+                    Log.e("hi","there1");
                     urlConnection.setRequestMethod("GET");
+                    Log.e("hi", "there2");
+                    //urlConnection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2 (.NET CLR 3.5.30729)");
                     urlConnection.connect();
+                    Log.e("hi", "there3");
                     InputStream inputStream = urlConnection.getInputStream();
+                    Log.e("hi","there4");
                     StringBuffer buffer = new StringBuffer();
                     if (inputStream == null) {
                         // Nothing to do.
