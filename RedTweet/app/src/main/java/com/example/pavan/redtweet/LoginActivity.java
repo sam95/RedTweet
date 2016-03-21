@@ -338,7 +338,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 //Thread.sleep(2000);
                 HttpURLConnection urlConnection = null;
                 BufferedReader reader = null;
-                String build = "http://10.0.2.2/1.php";
+                String build = "http://192.168.0.104/1.php";
                 Log.e("the url ", build);
                 try {
                     URL url = new URL(build);
