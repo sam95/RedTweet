@@ -55,5 +55,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </Spinner>
+    <EditText
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_below="@id/Spinner01"
+        android:id="@+id/location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="location"/>
+    <Button
+        android:id="@+id/butt"
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/location"
+        android:text="sign up"
+        android:textAllCaps="true"
+        android:layout_centerHorizontal="true"/>
+
 
 </RelativeLayout>
