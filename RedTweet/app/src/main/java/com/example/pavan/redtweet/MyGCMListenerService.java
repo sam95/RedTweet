@@ -84,7 +84,7 @@ public class MyGCMListenerService extends GcmListenerService {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle("Weather Alert!")
+                        .setContentTitle("RedTweet alert!")
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                         .setContentText(message)
                         .setPriority(NotificationCompat.PRIORITY_HIGH);
