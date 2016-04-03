@@ -1,5 +1,6 @@
 package com.example.pavan.redtweet;
 
+import android.annotation.TargetApi;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -7,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
@@ -18,13 +20,14 @@ import com.google.android.gms.gcm.GcmListenerService;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Set;
+
 public class MyGCMListenerService extends GcmListenerService {
     private static final String TAG = "MyGcmListenerService";
 
     //private static final String EXTRA_DATA = "data";
-    private static final String EXTRA_WEATHER = "weather";
+    private static final String EXTRA_TWEET = "tweet";
     private static final String EXTRA_LOCATION = "location";
-
     public static final int NOTIFICATION_ID = 1;
 
     /**
@@ -34,6 +37,7 @@ public class MyGCMListenerService extends GcmListenerService {
      * @param data Data bundle containing message data as key/value pairs.
      *             For Set of keys use data.keySet().
      */
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
     public void onMessageReceived(String from, Bundle data) {
         // Time to unparcel the bundle!
@@ -42,6 +46,18 @@ public class MyGCMListenerService extends GcmListenerService {
             // TODO: gcm_default sender ID comes from the API console
             String senderId = "553076930671";
             Log.e(from,data.toString());
+
+            JSONObject json = new JSONObject();
+            Set<String> keys = data.keySet();
+            for (String key : keys) {
+                try {
+                    // json.put(key, bundle.get(key)); see edit below
+                    json.put(key, JSONObject.wrap(data.get(key)));
+                } catch(JSONException e) {
+                    //Handle exception here
+                }
+            }
+            Log.e("the main",json.toString());
             if (senderId.length() == 0) {
                 Toast.makeText(this, "SenderID string needs to be set", Toast.LENGTH_LONG).show();
             }
@@ -49,9 +65,11 @@ public class MyGCMListenerService extends GcmListenerService {
             if ((senderId).equals(from)) {
                 // Process message and then post a notification of the received message.
                 try {
-                    JSONObject jsonObject = new JSONObject(data.toString().replace("Bundle[","").replace("]",""));
-                    String weather = jsonObject.getString(EXTRA_WEATHER);
-                    String location = jsonObject.getString(EXTRA_LOCATION);
+                    Log.e("hi","here");
+                    //String result= getJSONUrl(url);
+                    //Log.e("type",)
+                    String weather = json.getString(EXTRA_TWEET);
+                    String location = json.getString(EXTRA_LOCATION);
                     Log.e(weather,location);
                     String alert = weather + location;
                     Log.e(weather, location);
@@ -59,6 +77,8 @@ public class MyGCMListenerService extends GcmListenerService {
                 } catch (Exception e) {
                     // JSON parsing failed, so we just let this message go, since GCM is not one
                     // of our critical features.
+                    Log.e("exception",e.getMessage());
+                    e.printStackTrace();
                 }
             }
             Log.i(TAG, "Received: " + data.toString());
