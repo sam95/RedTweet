@@ -94,8 +94,11 @@ public class MyGCMListenerService extends GcmListenerService {
     private void sendNotification(String message) {
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        Intent iu = new Intent(this,MainActivityFragment.class);
+        iu.putExtra("data",message);
         PendingIntent contentIntent =
-                PendingIntent.getActivity(this, 0, new Intent(this, LoginActivity.class), 0);
+                PendingIntent.getActivity(this, 0, iu, 0);
+
 
         // Notifications using both a large and a small icon (which yours should!) need the large
         // icon as a bitmap. So we need to create that here from the resource ID, and pass the

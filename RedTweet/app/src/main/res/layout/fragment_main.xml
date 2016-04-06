@@ -8,5 +8,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.pavan.redtweet.MainActivityFragment">
 
+    <TextView
+        android:id="@+id/tcv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="true"
+        android:textSize="30dp"/>
+
 
 </RelativeLayout>
