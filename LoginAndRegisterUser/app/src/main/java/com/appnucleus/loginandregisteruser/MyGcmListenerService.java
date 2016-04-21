@@ -80,6 +80,7 @@ public class MyGcmListenerService extends GcmListenerService {
             Log.i(TAG, "Received: " + data.toString());
         }
     }
+    //Gcm working with keys
 
     /**
      *  Put the message into a notification and post it.
