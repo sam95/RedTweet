@@ -9,6 +9,19 @@ import android.util.Log;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -18,6 +31,8 @@ import com.google.android.gms.iid.InstanceID;
  */
 public class RegistrationIntentService extends IntentService {
     private static final String TAG = "RegIntentService";
+    public static String url = "http://188.166.217.124/store_token.php";
+    InputStream is = null;
 
     public RegistrationIntentService() {
         super(TAG);
@@ -38,6 +53,14 @@ public class RegistrationIntentService extends IntentService {
                         GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
                 Log.e("the token ",token);
                 sendRegistrationToServer(token);
+                List<NameValuePair> nameValuePairList = new ArrayList<NameValuePair>();
+                nameValuePairList.add(new BasicNameValuePair("token",token));
+                HttpClient httpClient = new DefaultHttpClient();
+                HttpPost httpPost = new HttpPost(url);
+                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairList));
+                HttpResponse httpResponse = httpClient.execute(httpPost);
+                HttpEntity httpEntity = httpResponse.getEntity();
+                is = httpEntity.getContent();
 
                 // You should store a boolean that indicates whether the generated token has been
                 // sent to your server. If the boolean is false, send the token to your server,

@@ -87,7 +87,7 @@ public class Activity_Retrieve extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
 
           //  url="http://192.168.0.111/workshop_retrieve.php?b_group="+value1+"&location="+value2+"";
-            String url = "http://192.168.0.103/workshop_retrieve.php?b_group="+value1+"&location="+value2;
+            String url = "http://188.166.217.124/workshop_retrieve.php?b_group="+value1+"&location="+value2;
 
       //      url = new URL("http://192.168.0.111/workshop_retrieve.php?b_group="+value1+"&location="+value2+"");
 

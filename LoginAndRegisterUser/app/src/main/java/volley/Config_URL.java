@@ -4,8 +4,9 @@ package volley;
 
 public class Config_URL
 {
-	private static String base_URL = "http://192.168.0.103/";		//Default configuration for WAMP - 80 is default port for WAMP and 10.0.2.2 is localhost IP in Android Emulator
+	private static String base_URL = "http://188.166.217.124/";		//Default configuration for WAMP - 80 is default port for WAMP and 10.0.2.2 is localhost IP in Android Emulator
 	// Server user login url
+	//188.166.217.124
 	public static String URL_LOGIN = base_URL+"android_login_api/";
 
 	// Server user register url

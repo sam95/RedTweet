@@ -3,7 +3,7 @@ package com.appnucleus.loginandregisteruser;
 
 
 
-        import android.content.Intent;
+import android.content.Intent;
         import android.os.StrictMode;
         import android.support.v7.app.ActionBarActivity;
         import android.os.Bundle;
@@ -51,7 +51,7 @@ public class ActivityRequest extends ActionBarActivity {
     EditText etcity, etunits, etb_group, ethospital, etcontact;
     private Spinner inputb_group;
     Button bSubmit;
-    public static String url = "http://192.168.0.103/workshop_connect.php";
+    public static String url = "http://188.166.217.124/workshop_connect.php";
     String city, units, b_group, hospital, contact;
     InputStream is = null;
     String exceptionMessage = "There seems to be some problem connecting to database. " +
