@@ -105,8 +105,11 @@ public class MyGcmListenerService extends GcmListenerService {
                         .setContentTitle("RedTweet Alert!")
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                         .setContentText(message)
+                        //.setVibrate(NotificationCompat.DEFAULT_VIBRATE)
                         .setPriority(NotificationCompat.PRIORITY_HIGH);
+        mBuilder.setDefaults(NotificationCompat.DEFAULT_VIBRATE);
         mBuilder.setContentIntent(contentIntent);
+        //notification.defaults |= Notification.DEFAULT_VIBRATE;
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
 }

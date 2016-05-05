@@ -3,6 +3,7 @@ package="com.appnucleus.loginandregisteruser">
 
 <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission android:name="android.permission.WAKE_LOCK" />
+<uses-permission android:name="android.permission.VIBRATE"/>
 <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 <permission android:name="com.appnucleus.loginandregisteruser.app.permission.C2D_MESSAGE"
     android:protectionLevel="signature" />
